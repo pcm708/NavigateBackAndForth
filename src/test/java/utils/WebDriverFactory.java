@@ -60,7 +60,7 @@ public class WebDriverFactory {
 
 		else if (browserName.equalsIgnoreCase("firefox")) {
 			DesiredCapabilities cap = DesiredCapabilities.firefox();
-			cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, false);
+			
 			try {
 				tlDriver.set(new RemoteWebDriver(new URL(getProperty("huburl")), cap));
 			} catch (MalformedURLException e) {
