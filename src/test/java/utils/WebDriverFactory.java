@@ -57,11 +57,7 @@ public class WebDriverFactory {
 
 		else if (browserName.equalsIgnoreCase("firefox")) {
 			DesiredCapabilities cap = DesiredCapabilities.firefox();
-<<<<<<< HEAD
 			cap.setBrowserName("firefox");
-=======
-			
->>>>>>> 08e3713b48a820a401c6e6f5d1007f7cab78a510
 			try {
 				driver= new RemoteWebDriver(new URL(getProperty("huburl")), cap);
 			} catch (MalformedURLException e) {
