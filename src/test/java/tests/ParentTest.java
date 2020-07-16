@@ -10,17 +10,20 @@ import utils.WebDriverFactory;
 
 public class ParentTest {
 
-	protected WebDriver driver;
+	protected WebDriver driver=null;
 	protected WebDriverFactory wdFactory;
 	
 	@BeforeTest
 	public void initPages() {
+		if (driver == null) {
 		wdFactory= new WebDriverFactory();
 		driver = wdFactory.getDriver(getProperty("browser"));
+		}
 	}
 	
 	@AfterTest
 	public void closeBrowser() {
 		driver.close();
+		driver = null;
 	}
 }

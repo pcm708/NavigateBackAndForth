@@ -11,18 +11,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class WebDriverFactory {
 	
-	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
-	
-	public static synchronized WebDriver getDriver() {
-		return tlDriver.get();
-	}
+	public  WebDriver driver=null;
 
 	public WebDriver getDriver(String browserName) {
 		if (browserName.equalsIgnoreCase("chrome")) {
@@ -31,7 +27,7 @@ public class WebDriverFactory {
 				init_remoteWebDriver(browserName);
 			}
 			else {
-				tlDriver.set(new ChromeDriver());
+				driver= new ChromeDriver();
 			}
 
 		} else if (browserName.equalsIgnoreCase("firefox")) {
@@ -40,32 +36,34 @@ public class WebDriverFactory {
 				init_remoteWebDriver(browserName);
 			}
 			else {
-				tlDriver.set(new FirefoxDriver());
+				driver= new FirefoxDriver();
 				
 			}
 		}
-		return getDriver();
+		return driver;
 	}
 	
-	private void init_remoteWebDriver(String browserName) {
+	private WebDriver init_remoteWebDriver(String browserName) {
 		if (browserName.equalsIgnoreCase("chrome")) {
 			DesiredCapabilities cap = DesiredCapabilities.chrome();
 			cap.setCapability(ChromeOptions.CAPABILITY, false);
 			try {
-				tlDriver.set(new RemoteWebDriver(new URL(getProperty("huburl")), cap));
+				driver= new RemoteWebDriver(new URL(getProperty("huburl")), cap);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
+			return driver;
 		}
 
 		else if (browserName.equalsIgnoreCase("firefox")) {
 			DesiredCapabilities cap = DesiredCapabilities.firefox();
 			cap.setBrowserName("firefox");
 			try {
-				tlDriver.set(new RemoteWebDriver(new URL(getProperty("huburl")), cap));
+				driver= new RemoteWebDriver(new URL(getProperty("huburl")), cap);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
 		}
+		return driver;
 	}
 }

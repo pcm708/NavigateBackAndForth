@@ -30,7 +30,7 @@ public class GoogleTest extends ParentTest{
 		gSPage=gHPage.enterSearchTerm();
 		System.out.println("User entered the search term");
 		try {
-			Thread.sleep(30000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,7 +44,7 @@ public class GoogleTest extends ParentTest{
 		gHPage=gSPage.navigateBackandVerifyPageTitle();
 		System.out.println("User navigated back to home page");
 		try {
-			Thread.sleep(30000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
